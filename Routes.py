@@ -17,6 +17,16 @@ CORS(app)  # Enable CORS for all routes
 UPLOAD_FOLDER = 'uploaded_docs'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
+# Add this route at the beginning of your routes (after the CORS setup)
+
+@app.route('/')
+def health_check():
+    return jsonify({"status": "healthy", "message": "Legal Document Risk Analyzer API is running"})
+
+@app.route('/health')
+def health():
+    return jsonify({"status": "healthy", "message": "API is running"})
+
 @app.route('/ask', methods=['POST'])
 def ask():
     data = request.json
